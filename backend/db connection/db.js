@@ -1,13 +1,14 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
 
-// const playerData = require('../playerData')
-// const player = require('../model/player')
+const playerData = require('../playerData')
+const player = require('../model/player')
 
-
-
-const connectDB = async ()=>{
-    try{
+    
+ 
+async function Connection  () {
+    try{ 
+        console.log('connecting to database')
         await mongoose.connect(process.env.MONGO_URL , {
             useNewUrlParser: true,
             useUnifiedTopology: true
@@ -21,9 +22,9 @@ const connectDB = async ()=>{
     }
 }
 
+  
 
-
-module.exports = connectDB;
+Connection();
 
 // const players = mongoose.model('players' , playerSchema , '' )
 
