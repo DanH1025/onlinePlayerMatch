@@ -1,6 +1,3 @@
-import axios from "axios"
-
-
 
 function isOnline(online){
    const element = document.querySelector('.networkStatus')
