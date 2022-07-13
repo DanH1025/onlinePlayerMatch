@@ -15,7 +15,11 @@ const playerSchema = new mongoose.Schema({
     phoneNumber:{
         type: Number,
         required:true
-    },    
+    },
+    status: {
+        type: Boolean,
+        required: true
+    }    
     
 
 }); 

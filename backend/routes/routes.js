@@ -3,6 +3,7 @@ const router =  express.Router();
 const jwt = require('jsonwebtoken')
 const authenticateUsers = require('../middlewares/authenticateUsers')
 
+const {setOnline, setOffline} = require('../controllers/playerController')
 
 router.post('/regPlayer' , (req, res)=> {
     console.log('player is registering')
@@ -21,7 +22,13 @@ router.get('/testroute',authenticateUsers.authenticateUsers, (req,res) => {
     console.log("congrats authenticated user")
     res.send(200)
 })
+router.get('/', (req, res)=>{
+    res.send("this is the home url")
+})
+
+router.post('/setOnline', setOnline)
+router.post('/setOffline' , setOffline)
 
 
 
-module.exports =  router
+module.exports =  router;
