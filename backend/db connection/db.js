@@ -29,24 +29,22 @@ Connection();
 // const players = mongoose.model('players' , playerSchema , '' )
 
 
+const importData = async ()=>{
+    try{
+        //first delete every product in the database
+        await player.deleteMany({});
 
+        //insert product data to database 
+        await player.insertMany(playerData);
 
-// const importData = async ()=>{
-//     try{
-//         //first delete every product in the database
-//         await player.deleteMany({});
+        console.log("Data Import Success");
+        process.exit();
 
-//         //insert product data to database 
-//         await player.insertMany(playerData);
-
-//         console.log("Data Import Success");
-//         process.exit();
-
-//     }catch(error){
-//         console.log("Data Import Failed");
-//         console.log(error);
-//         process.exit(1);
-//     }
-// };
-// importData() 
+    }catch(error){
+        console.log("Data Import Failed");
+        console.log(error);
+        process.exit(1);
+    }
+};
+importData() 
 
