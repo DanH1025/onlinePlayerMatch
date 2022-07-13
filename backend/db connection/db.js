@@ -16,7 +16,7 @@ async function Connection  () {
         console.log("Connected to DataBase")
 
     }catch(error){
-        console.error("DataBase connection faild");
+        console.error("DataBase connection failed");
         console.log(error);
         process.exit(1);
     }
