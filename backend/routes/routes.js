@@ -1,7 +1,7 @@
 const express = require('express');
 const router =  express.Router();
 const jwt = require('jsonwebtoken')
-const authenticateUsers = require('../middleware/authenticateUsers')
+const authenticateUsers = require('../middlewares/authenticateUsers')
 
 
 router.post('/regPlayer' , (req, res)=> {
@@ -10,14 +10,16 @@ router.post('/regPlayer' , (req, res)=> {
     //testing tokens for now
     const username = req.body.username
     const user = {name : username}
-    jwt.sign(user, process.env.ACCESS_TOKEN)
+    const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
 
+    return res.status(200).json(token)
     //todo refresh tokens
     //save refresh tokens to database
 })
 
-router.post('/testroute',authenticateUsers, (req,res) => {
+router.get('/testroute',authenticateUsers.authenticateUsers, (req,res) => {
     console.log("congrats authenticated user")
+    res.send(200)
 })
 
 
