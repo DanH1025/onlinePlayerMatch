@@ -1,10 +1,16 @@
 const express = require('express');
 const router =  express.Router();
 
+const {setOnline, setOffline} = require('../controllers/playerController')
 
 
-router.post('/regPlayer' , ()=> {console.log('player is registering')})
+router.get('/', (req, res)=>{
+    res.send("this is the home url")
+})
+
+router.post('/setOnline', setOnline)
+router.post('/setOffline' , setOffline)
 
 
 
-module.exports =  router
+module.exports =  router;
