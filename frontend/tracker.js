@@ -4,7 +4,7 @@ function isOnline(online){
    if(online){
      element.innerHTML = 'online'
    }else{
-    element.innerHTML = 'offline'
+    element.innerHTML = 'offline' 
    }
 }
 
