@@ -2,16 +2,15 @@
 
 const setOnline = (req, res)=>{
     console.log('setting the player status to online')
-    res.send('Online');
+    console.log(req.body)
+
+    res.send(req.body)
 }
 
 
-const setOffline = (req,res)=>{
-    console.log('setting the player status to offline');
-    res.send('offline');
-}
+
 
 module.exports ={
     setOnline,
-    setOffline
+   
 }

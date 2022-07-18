@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>random matching</title>
+</head>
+<body>
+    <h4>ALL USERS HAVE LOGGED IN</h4>
+
+    <h1>ALL PLAYER STATUS</h1>
+
+    <P>list of all players</P>
+
+    <table border="1">
+        <tr>
+            <th>id</th>
+            <th>Full Name</th>
+            <th>UserName</th>
+            <th>Phone number</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Dano Hailu</td>
+            <td>deathNote</td>
+            <td>0921231231</td>
+            <td>online</td>
+        </tr>
+        
+    </table>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket=io()
+    </script>
+    <script src="./tracker.js"></script>
+
+</body>
+</html>
