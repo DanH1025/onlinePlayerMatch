@@ -16,7 +16,10 @@ const playerSchema = new mongoose.Schema({
         type: Number,
         required:true
     },    
-    
+    password: {
+        type: String,
+        required: true
+    }
 
 }); 
 playerSchema.pre('save', async function (next) {
@@ -29,7 +32,12 @@ playerSchema.pre('save', async function (next) {
 })
 
 playerSchema.methods.getSignedtoken = function () {
-    return jwt.sign({username : this.username}, proccess.env.ACCESS_TOKEN_SECRET)
+    return jwt.sign({username: this.userName},process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: process.env.TOKEN_EXPIRE
+    })
+}
+playerSchema.methods.comparePassword = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password)
 }
 //creating the model for mongoose and set the collection to the string specified "player"
 const Player = mongoose.model('player', playerSchema);

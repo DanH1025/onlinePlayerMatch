@@ -25,3 +25,5 @@ exports.authenticateUsers = (req, res, next) => {
     
 }
 
+console.log("")
+
