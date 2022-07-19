@@ -2,22 +2,15 @@ const mongoose = require('mongoose');
 
 
 const betSchema = new mongoose.Schema({
-    playerName:{
+    playerId:{
         type: String,
         required:true
-    },
-    playerUserName:{
-        type: String,
-        required: true
-    },
+    },   
     betAmount:{
         type: Number,
         required:true
     },
-    status: {
-        type: String,
-        required: true
-    }   
+     
     
 
 }); 

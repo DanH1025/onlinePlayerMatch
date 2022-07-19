@@ -5,6 +5,7 @@ const authenticateUsers = require('../middlewares/authenticateUsers')
 const authController = require('../controllers/authController')
 
 
+const {submitBet} = require('../controllers/playerController')
 
 router.post('/regPlayer' , authController.registerUser)
 router.post('/login', authController.loginUser)
@@ -31,7 +32,7 @@ router.get('/testroute',authenticateUsers.authenticateUsers, (req,res) => {
     console.log(req.player)
     res.sendStatus(200)
 })
-router.get('/bet', authenticateUsers.authenticateUsers)
+router.post('/bet', authenticateUsers.authenticateUsers, submitBet)
 
 
 
