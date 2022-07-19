@@ -15,12 +15,17 @@ const playerSchema = new mongoose.Schema({
     phoneNumber:{
         type: Number,
         required:true
-    },
-    status: {
-        type: Boolean,
+    },    
+    email : {
+        type: String,
         required: true
-    }    
-    
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    resetPasswordToken : String,
+    resetPasswordExpires : Date
 
 }); 
 
@@ -34,7 +39,18 @@ playerSchema.pre('save', async function (next) {
 })
 
 playerSchema.methods.getSignedtoken = function () {
-    return jwt.sign({username : this.username}, proccess.env.ACCESS_TOKEN_SECRET)
+    return jwt.sign({id: this._id},process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: process.env.TOKEN_EXPIRE
+    })
+}
+playerSchema.methods.comparePassword = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password)
+}
+playerSchema.methods.passwordResetToken = function () {
+    const resetToken = crypto.randomBytes(20).toString('hex')
+    this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+    this.resetPasswordExpires = Date.now() + 30 * 60 * 1000
+    return resetToken
 }
 //creating the model for mongoose and set the collection to the string specified "player"
 const Player = mongoose.model('player', playerSchema);
