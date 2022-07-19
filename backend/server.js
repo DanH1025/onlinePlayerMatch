@@ -7,7 +7,7 @@ const cookieparser = require('cookie-parser')
 const ejs = require('ejs');
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
-
+const Bet = require('./model/bets')
 const {playerSchema} = require('../backend/model/player')
 // const playerSchema ={
 //     id: String,
@@ -42,8 +42,13 @@ io.on('connection' , function(socket){
     // console.log('socket id ' + socket.id)
     
     socket.on('disconnect', function(){
-        
         console.log('user Disconnected, update the database to false')
+        players.map(player => {
+            if(player.socketId==socket.id) {
+                Bet.findOneAndDelete({playerId:player.playerId})
+                console.log("deleted/deleting....")
+            }
+        })
     })
 
     socket.on('addPlayer', function(playerId){
