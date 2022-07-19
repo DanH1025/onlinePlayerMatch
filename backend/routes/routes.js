@@ -14,6 +14,7 @@ router.get('/testroute',authenticateUsers.authenticateUsers, (req,res) => {
     console.log(req.player)
     res.sendStatus(200)
 })
+router.get('/bet', authenticateUsers.authenticateUsers)
 
 
 

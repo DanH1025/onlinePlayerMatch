@@ -32,12 +32,12 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async(req,res, next) => {
     const {userName, password} = req.body
 
-    if(!email||!password) {
+    if(!userName||!password) {
         return next(new ErrorHandler('Please enter email or password'),400)
     }
-    const player = await Player.findOne({userName}.select('+password'))
+    const player = await Player.findOne({userName})
 
-    if(!user) {
+    if(!player) {
         return next(new ErrorHandler('Invalid usernam or password'),401)
     }
     const passwordMatch = await player.comparePassword(password)
