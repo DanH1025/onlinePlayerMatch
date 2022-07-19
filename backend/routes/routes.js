@@ -3,7 +3,7 @@ const router =  express.Router();
 const jwt = require('jsonwebtoken')
 const authenticateUsers = require('../middlewares/authenticateUsers')
 const authController = require('../controllers/authController')
-const authenticateUsers = require('../middlewares/authenticateUsers');
+
 
 
 router.post('/regPlayer' , authController.registerUser)

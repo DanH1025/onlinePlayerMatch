@@ -6,6 +6,7 @@ const db = require('./db connection/db');
 const cookieparser = require('cookie-parser')
 const ejs = require('ejs');
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 
 const {playerSchema} = require('../backend/model/player')
 // const playerSchema ={
@@ -27,6 +28,13 @@ app.set('view engine' , 'ejs');
 var http = require('http').createServer(app)
 var io = require('socket.io')(http);
 
+let players = [];
+  
+const addPlayer = (playerId, socketId) => {
+  !players.some((player) => player.playerId === playerId) &&
+    players.push({ playerId, socketId });
+};
+
 
 
 io.on('connection' , function(socket){
@@ -35,6 +43,10 @@ io.on('connection' , function(socket){
     socket.on('disconnect', function(){
         
         console.log('user Disconnected, update the database to false')
+    })
+
+    socket.on('addPlayer', function(playerId){
+        addPlayer(playerId,socket.id)
     })
 })
 
@@ -47,10 +59,15 @@ app.use(cookieparser())
 
 
 
-app.get('/' , (req,res)=>{     
+app.get('/' , (req,res)=>{ 
+    const {token} = req.cookies
+    console.log("token : "+token)
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)   
+    console.log(decoded.id)
     Player.find({}, function(err, player){
         res.render('index' , {
-            playerList: player
+            playerList: player,
+            playerId : decoded.id
         })
     })
 })

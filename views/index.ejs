@@ -50,6 +50,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket=io()
+        socket.current.emit('addPlayers',playerId)
     </script>
     <!-- <script src="./tracker.js"></script> -->
 
