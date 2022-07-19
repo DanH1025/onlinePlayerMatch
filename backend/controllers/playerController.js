@@ -7,10 +7,14 @@ const setOnline = (req, res)=>{
     res.send(req.body)
 }
 
+const fetchAllPlayers = (req,res)=>{
+    res.send('i will get u all the players info')
+}
 
 
 
 module.exports ={
     setOnline,
+    fetchAllPlayers
    
 }

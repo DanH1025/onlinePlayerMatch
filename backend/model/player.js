@@ -23,6 +23,7 @@ const playerSchema = new mongoose.Schema({
     
 
 }); 
+
 playerSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
         next()

@@ -21,13 +21,28 @@
             <th>Phone number</th>
             <th>Status</th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td>Dano Hailu</td>
-            <td>deathNote</td>
-            <td>0921231231</td>
-            <td>online</td>
-        </tr>
+        <%playerList.forEach(players=>{%>
+            <tr>
+                <td>
+                    <p><%= players.id %></p>
+                </td>
+                <td>
+                    <p><%= players.fullName %></p>
+                </td>
+                <td>
+                    <p><%= players.userName %></p>
+                </td>
+                <td>
+                    <p><%= players.phoneNumber %></p>
+                </td>
+                <td>
+                    <p><%= players.status? 'Online' : 'Offline' %></p>
+                </td>
+
+
+            </tr>
+            
+        <%})%>
         
     </table>
 
@@ -36,7 +51,7 @@
     <script>
         var socket=io()
     </script>
-    <script src="./tracker.js"></script>
+    <!-- <script src="./tracker.js"></script> -->
 
 </body>
 </html>
