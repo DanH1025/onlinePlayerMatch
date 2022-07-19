@@ -2,16 +2,19 @@
 
 const setOnline = (req, res)=>{
     console.log('setting the player status to online')
-    res.send('Online');
+    console.log(req.body)
+
+    res.send(req.body)
+}
+
+const fetchAllPlayers = (req,res)=>{
+    res.send('i will get u all the players info')
 }
 
 
-const setOffline = (req,res)=>{
-    console.log('setting the player status to offline');
-    res.send('offline');
-}
 
 module.exports ={
     setOnline,
-    setOffline
+    fetchAllPlayers
+   
 }
