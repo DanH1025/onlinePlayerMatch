@@ -28,6 +28,7 @@ const playerSchema = new mongoose.Schema({
     resetPasswordExpires : Date
 
 }); 
+
 playerSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
         next()
