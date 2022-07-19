@@ -47,12 +47,18 @@
     </table>
 
 
+        <p id="nedId"><%= playerId %></p>
     <script src="/socket.io/socket.io.js"></script>
+    
     <script>
         var socket=io()
-        socket.current.emit('addPlayers',playerId)
-    </script>
-    <!-- <script src="./tracker.js"></script> -->
+        var id = document.getElementById('nedId').innerHTML
+
+        console.log('ned id : ' + id)
+        
+        socket.emit('addPlayer',id)
+    </script> 
+    <!-- <script src="./tracker.js"></script>
 
 </body>
 </html>

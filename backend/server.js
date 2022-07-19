@@ -39,6 +39,7 @@ const addPlayer = (playerId, socketId) => {
 
 io.on('connection' , function(socket){
     console.log('user is connected, update the database to true ');
+    // console.log('socket id ' + socket.id)
     
     socket.on('disconnect', function(){
         
@@ -46,7 +47,8 @@ io.on('connection' , function(socket){
     })
 
     socket.on('addPlayer', function(playerId){
-        addPlayer(playerId,socket.id)
+        addPlayer(playerId,socket.id);
+         console.log('socket id ' + socket.id)
     })
 })
 
