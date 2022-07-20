@@ -45,7 +45,7 @@ io.on('connection' , function(socket){
         console.log('user Disconnected, update the database to false')
         players.map(player => {
             if(player.socketId==socket.id) {
-                Bet.findOneAndDelete({playerId:player.playerId})
+                 Bet.findOneAndDelete({playerId:player.playerId})
                 console.log("deleted/deleting....")
             }
         })
