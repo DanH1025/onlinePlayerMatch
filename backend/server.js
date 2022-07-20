@@ -29,24 +29,35 @@ var http = require('http').createServer(app)
 var io = require('socket.io')(http);
 
 let players = [];
+
+players.map(player=> console.log("array of player" +  player.playerId + ' '  + player.socketId))
   
 const addPlayer = (playerId, socketId) => {
   !players.some((player) => player.playerId === playerId) &&
     players.push({ playerId, socketId });
+    players.map(player=> console.log("NEw array of player" + player.playerId + ' '  + player.socketId))
 };
-
+const removePlayer = (socketId) => {
+    players = players.filter((player) => player.socketId !== socketId);
+  };
 
 
 io.on('connection' , function(socket){
     console.log('user is connected, update the database to true ');
     // console.log('socket id ' + socket.id)
+    players.map(player=> console.log("array of player" + player.playerId + ' '  + player.socketId))
     
     socket.on('disconnect', function(){
-        console.log('user Disconnected, update the database to false')
-        players.map(player => {
+        console.log('user Disconnected, update the database to false')        
+        console.log('OG socketid '+ socket.id)
+        players.map( async player => {
             if(player.socketId==socket.id) {
-                 Bet.findOneAndDelete({playerId:player.playerId})
-                console.log("deleted/deleting....")
+                removePlayer(socket.id);
+              const deleted = await Bet.findOne({playerId:player.playerId})
+                deleted.remove().then(()=> console.log('deleted file'))
+                console.log("deleted");
+            }else{
+                console.log('player not found'); 
             }
         })
     })

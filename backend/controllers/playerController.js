@@ -15,6 +15,12 @@ const fetchAllPlayers = (req,res)=>{
 }
 
 const submitBet = async (req,res)=>{
+
+    // player can not bet if there is a pending bet with that player id 
+    // add status to bet schema 
+    
+
+
     const {betAmount} = req.body;
     const {token} = req.cookies
     console.log("token : "+token)
