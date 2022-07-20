@@ -60,7 +60,7 @@ exports.logout = (req,res,next) => {
 
 exports.forgotPassword = async (req,res,next) => {
     const player = await Player.findOne({email: req.body.email})
-
+    console.log("We got the player")
     if (!player) {
         return next(new ErrorHandler('No user found with that email',404))
     }
