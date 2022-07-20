@@ -25,4 +25,4 @@ const MatchSchema = new mongoose.Schema({
 //creating the model for mongoose and set the collection to the string specified "player"
 const Matching = mongoose.model('match', MatchSchema);
 
-module.exports = MatchSchema;    
+module.exports = Matching;    

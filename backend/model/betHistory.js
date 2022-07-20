@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 
 
 const betHistorySchema = new mongoose.Schema({
-    betId:{
+    betId1:{
         type:String,
         required: true
     },
-    playerId:{
-        type: String,
-        required:true
-    },   
+    betId2:{
+        type:String,
+        required: true
+    },      
     betAmount:{
         type: Number,
         required:true

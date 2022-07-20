@@ -79,38 +79,10 @@ const submitBet = async (req,res)=>{
 
 }
 
-const completeBet = async (req,res)=>{    
-    const {token} = req.cookies
-    console.log("token : "+token)
-    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)   
-    console.log(decoded.id)
 
-    //get player by its id
-    const playerExists = await Bet.findOne({playerId: decoded.id});
-
-    if(playerExists){        
-        await Bet.findOneAndUpdate({
-            playerId: decoded.id,
-            status: 'complete'
-        })
-        await BetHistory.create({
-            betId: playerExists.betId,
-            playerId: playerExists.playerId, 
-            betAmount: playerExists.betAmount,
-            status: 'complete'
-        })
-        await Bet.findOneAndDelete({playerId: playerExists.playerId})
-
-        res.status(200).send('Bet Completed')
-    }else{
-        res.status(400).send('Player not found')
-    }
-    
-
-}
 
 module.exports ={  
     submitBet,
-    completeBet
+ 
    
 }

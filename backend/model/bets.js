@@ -17,6 +17,11 @@ const betSchema = new mongoose.Schema({
      status:{
         type: String,
         required: true
+     },
+     matchId: {
+        type:String,
+        default: ' ',
+        
      }
     
 
