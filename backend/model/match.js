@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
 
-const betSchema = new mongoose.Schema({
-    betId:{
+const MatchSchema = new mongoose.Schema({
+    betId1:{
         type:String,
         required: true
     },
-    playerId:{
-        type: String,
-        required:true
-    },   
+    betId2:{
+        type:String,
+        required: true
+    },      
     betAmount:{
         type: Number,
         required:true
@@ -23,6 +23,6 @@ const betSchema = new mongoose.Schema({
 }); 
 
 //creating the model for mongoose and set the collection to the string specified "player"
-const Bets = mongoose.model('bet', betSchema);
+const Matching = mongoose.model('match', MatchSchema);
 
-module.exports = Bets;
+module.exports = MatchSchema;    
