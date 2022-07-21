@@ -2,7 +2,7 @@ require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const Bet = require('../model/bets')
 const BetHistory = require('../model/betHistory')
-const Match = require('../model/match')
+// const Match = require('../model/match')
 
 
 const approveBet = async (req,res)=>{
@@ -20,13 +20,13 @@ const approveBet = async (req,res)=>{
 
         while(matching_flag){
             const matching = await Bet.find({status: 'approved' ,  betAmount: player.betAmount})
-            console.log(matching[1])    
+            console.log(matching[0])    
         
             if(matching.length > 1 ){  
                 
-                await Bet.findOneAndUpdate({playerId: player.id} , {matchId: player.betId+matching[1].betId })
+                await Bet.findOneAndUpdate({playerId: player.id} , {matchId: player.betId+matching[0].betId })
 
-                await Bet.findOneAndUpdate({playerId: matching[1].playerId} , {matchId: player.betId+matching[1].betId})               
+                await Bet.findOneAndUpdate({playerId: matching[0].playerId} , {matchId: player.betId+matching[0].betId})               
                     matching_flag = false
                     res.status(200).send('Match found!')                       
             
