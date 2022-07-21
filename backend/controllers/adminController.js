@@ -20,13 +20,15 @@ const approveBet = async (req,res)=>{
 
         while(matching_flag){
             const matching = await Bet.find({status: 'approved' ,  betAmount: player.betAmount})
-            console.log(matching[0])    
+            //console.log(matching[0])    
         
             if(matching.length > 1 ){  
                 
-                await Bet.findOneAndUpdate({playerId: player.id} , {matchId: player.betId+matching[0].betId })
+                await Bet.findOneAndUpdate({playerId: playerId} , 
+                    {matchId: player.betId+matching[1].betId })
 
-                await Bet.findOneAndUpdate({playerId: matching[0].playerId} , {matchId: player.betId+matching[0].betId})               
+                await Bet.findOneAndUpdate({playerId: matching[1].playerId} 
+                    , {matchId: player.betId+matching[1].betId})               
                     matching_flag = false
                     res.status(200).send('Match found!')                       
             
@@ -69,11 +71,11 @@ const {betId1, betId2} = req.body
         await BetHistory.create({
             betId1: player1Exists.betId,
             betId2: player2Exists.betId,
-            betAmount: playerExists.betAmount,
+            betAmount: player1Exists.betAmount,
             status: 'complete'
         })
-        await Bet.findOneAndDelete({playerId: player1Exists.playerId})
-        await Bet.findOneAndDelete({playerId: player2Exists.playerId})
+        await Bet.findOneAndDelete({betId : betId1})
+        await Bet.findOneAndDelete({betId: betId2})
 
         res.status(200).send('Bet Completed')
     }else{
@@ -82,6 +84,7 @@ const {betId1, betId2} = req.body
     
 
 }
+
 
 module.exports ={
     approveBet,
