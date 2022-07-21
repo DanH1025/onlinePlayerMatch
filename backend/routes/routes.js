@@ -34,7 +34,7 @@ router.get('/testroute',authenticateUsers.authenticateUsers, (req,res) => {
     res.sendStatus(200)
 })
 router.post('/bet', authenticateUsers.authenticateUsers, submitBet)
-router.post('/completeBet/:matchId' , completeBet)
+router.post('/completeBet' , completeBet)
 
 router.post( '/approveBet/:playerId' ,  approveBet)
 
