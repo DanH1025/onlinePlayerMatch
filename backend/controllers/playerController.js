@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const Bet = require('../model/bets')
 const BetHistory = require('../model/betHistory')
 const db = require('../db connection/db');
-
+const crypto = require('crypto')
 
 
 
@@ -37,9 +37,8 @@ const submitBet = async (req,res)=>{
     })
     console.log('pending Flag == ' + pendingFlag)
 
-    //generating bet id
-    const date = new Date()
-    const betId = date
+    //generating bet id   
+    const betId = crypto.randomBytes(64).toString('hex')
     console.log('bet id generated : ' + betId)
 
     // console.log(playerExists.status)

@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const Bet = require('../model/bets')
 const BetHistory = require('../model/betHistory')
 // const Match = require('../model/match')
-
+const crypto = require('crypto')
 
 const approveBet = async (req,res)=>{
     const playerId = req.params.playerId;
@@ -18,17 +18,21 @@ const approveBet = async (req,res)=>{
     }else{
         await Bet.findOneAndUpdate({playerId: playerId} , {status: 'approved'});
 
+
+
         while(matching_flag){
             const matching = await Bet.find({status: 'approved' ,  betAmount: player.betAmount})
-            //console.log(matching[0])    
+            //console.log(matching[0])         
+           
         
             if(matching.length > 1 ){  
                 
-                await Bet.findOneAndUpdate({playerId: playerId} , 
-                    {matchId: player.betId+matching[1].betId })
+                await Bet.findOneAndUpdate({playerId: matching[0].playerId} , 
+                    {matchId: matching[1].betId })
 
                 await Bet.findOneAndUpdate({playerId: matching[1].playerId} 
-                    , {matchId: player.betId+matching[1].betId})               
+                    , {matchId: matching[0].betId})   
+                                
                     matching_flag = false
                     res.status(200).send('Match found!')                       
             
@@ -56,26 +60,22 @@ const {betId1, betId2} = req.body
 
     //get player by its id
     const player1Exists = await Bet.findOne({betId: betId1});
+    console.log('player one found')
     const player2Exists = await Bet.findOne({betId: betId2})
+    console.log('player two found')
 
-    if(player1Exists && player2Exists){        
-        await Bet.findOneAndUpdate({
-            betId: betId1,
-            status: 'complete'
-        })
-        await Bet.findOneAndUpdate({
-            betId: betId2,
-            status: 'complete'
-        })
-
+    if(player1Exists && player2Exists){       
+      
         await BetHistory.create({
             betId1: player1Exists.betId,
             betId2: player2Exists.betId,
             betAmount: player1Exists.betAmount,
             status: 'complete'
         })
-        await Bet.findOneAndDelete({betId : betId1})
-        await Bet.findOneAndDelete({betId: betId2})
+        player1Exists.remove().then(()=> console.log('player one removed'))
+        player2Exists.remove().then(()=> console.log('player two removed'))
+        // await Bet.findOneAndDelete({betId : betId1 })
+        // await Bet.findOneAndDelete({betId: betId2})
 
         res.status(200).send('Bet Completed')
     }else{
