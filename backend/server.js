@@ -54,8 +54,11 @@ io.on('connection' , function(socket){
             if(player.socketId==socket.id) {
                 removePlayer(socket.id);
               const deleted = await Bet.findOne({playerId:player.playerId})
-                deleted.remove().then(()=> console.log('deleted file'))
-                console.log("deleted");
+                if(deleted !== null){
+                    deleted.remove().then(()=> console.log('deleted file'))
+                    console.log("deleted");
+                }              
+                
             }else{
                 console.log('player not found'); 
             }
